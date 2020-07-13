@@ -1,0 +1,36 @@
+.hiddenInput {
+  display: none;
+}
+
+.styledCheckbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-light);
+
+  .innerBox {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-dark);
+
+    .check {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      background: var(--bg-light);
+      transform: scale(0);
+      transition: all 0.2s ease;
+
+      &.checked {
+        transform: scale(1);
+      }
+    }
+  }
+}

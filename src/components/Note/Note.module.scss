@@ -1,0 +1,60 @@
+.wrapper {
+  margin-top: 15px;
+  border: 1px solid var(--bg-light);
+  border-radius: 6px;
+  background: var(--bg-dark);
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.noteHeader {
+  padding: 10px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  .title {
+    width: 100%;
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .actions {
+    margin-left: 10px;
+    display: flex;
+
+    span {
+      margin-left: 5px;
+      max-width: 24px;
+      max-height: 24px;
+      overflow: hidden;
+      cursor: pointer;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      img {
+        width: 24px;
+        height: 24px;
+
+        &:hover {
+          border-radius: 6px;
+          background: var(--green);
+        }
+      }
+    }
+  }
+}
+
+.noteFooter {
+  padding: 10px 16px;
+
+  span {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--green);
+  }
+}
