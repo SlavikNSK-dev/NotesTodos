@@ -40,7 +40,6 @@ const Notes: FunctionComponent<INotes> = (props) => {
   return (
     <div className={s.wrapper}>
       <div className={s.addNote}>
-        <span></span>
         <MyTextarea placeholder={'New note...'} onChange={textareaOnChangeHandler} />
       </div>
 
