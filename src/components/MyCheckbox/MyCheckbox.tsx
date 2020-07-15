@@ -17,11 +17,10 @@ const MyCheckbox: FunctionComponent<IMyCheckbox> = (props) => {
   const { name, checked, onClick, onChange } = props;
 
   // Handlers
-  const handleClick = () => {
+  const handleClick = (): void => {
     if (onClick) onClick();
   };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (onChange) onChange(event);
   };
 

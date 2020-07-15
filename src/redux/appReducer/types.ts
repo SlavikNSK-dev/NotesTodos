@@ -1,12 +1,16 @@
-// Initial state type
+import { TBaseThunk } from './../index';
+
+// Тип стейта
 export type TAppReducerState = {
   isInitialized: boolean;
 };
 
-// Action creators types
+// Типы экшенов
 export type TInitAppReducerAC = {
   type: 'INIT_APP';
   isInitialized: boolean;
 };
 
+// Общие типы для редюсера
 export type TAppReducerActions = TInitAppReducerAC;
+export type TAppReducerThunks = TBaseThunk<TAppReducerActions>;

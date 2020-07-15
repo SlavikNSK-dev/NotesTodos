@@ -22,18 +22,19 @@ export interface INote {
  * Компонент заметки
  */
 const Note: FunctionComponent<INote> = (props) => {
+  // Props destructuring
   const { note, todos, updateNoteTitle, deleteNote, makeOldNote } = props;
+
+  // Отфильтруемые задания
   const filteredTodos = todos.filter((t) => t.noteId === note.id);
 
-  const deleteNoteHandler = () => {
-    deleteNote(note.id);
-  };
-
-  const titleChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  // Handlers
+  const titleChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     updateNoteTitle(note.id, e.target.value);
-    if (note.isNew) {
-      makeOldNote(note.id);
-    }
+    if (note.isNew) makeOldNote(note.id);
+  };
+  const deleteNoteHandler = (): void => {
+    deleteNote(note.id);
   };
 
   return (

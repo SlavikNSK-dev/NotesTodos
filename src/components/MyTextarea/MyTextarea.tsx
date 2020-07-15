@@ -15,6 +15,7 @@ export interface IMyTextarea {
  * Компонент textarea
  */
 const MyTextarea: FunctionComponent<IMyTextarea> = (props) => {
+  // Props destructuring
   const {
     isFocused,
     value = '',
@@ -25,22 +26,21 @@ const MyTextarea: FunctionComponent<IMyTextarea> = (props) => {
   } = props;
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
   const [caretPosition, setCaretPosition] = useState<number>(1);
 
   useEffect(() => {
     if (isFocused) {
-      // Двигаем курсор
+      // Двигаем курсор и фокусим поле
       textareaRef.current?.setSelectionRange(caretPosition, caretPosition);
       textareaRef.current?.focus();
     }
-  });
+  }, [isFocused, caretPosition]);
 
-  const keyDownHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  // Handlers
+  const keyDownHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>): void => {
     if (onKeyDown) onKeyDown(e);
   };
-
-  const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setCaretPosition(e.target.selectionEnd);
     if (onChange) onChange(e);
   };

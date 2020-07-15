@@ -25,6 +25,7 @@ export interface ITodo {
  * Компонент задания
  */
 const Todo: FunctionComponent<ITodo> = (props) => {
+  // Props destructuring
   const {
     todo: { id, complited, text, isNew = false },
     updateTodoText,
@@ -34,17 +35,15 @@ const Todo: FunctionComponent<ITodo> = (props) => {
   } = props;
 
   // Handlers
-  const deleteClickHandler = () => {
-    deleteTodo(id);
-  };
   const checkboxChangeHandler = () => {
     changeTodoComplited(id);
   };
   const textareaChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     updateTodoText(id, e.target.value);
-    if (isNew) {
-      makeOldTodo(id);
-    }
+    if (isNew) makeOldTodo(id);
+  };
+  const deleteClickHandler = () => {
+    deleteTodo(id);
   };
 
   return (
@@ -70,6 +69,9 @@ const Todo: FunctionComponent<ITodo> = (props) => {
   );
 };
 
-export default connect(null, { updateTodoText, changeTodoComplited, deleteTodo, makeOldTodo })(
-  Todo,
-);
+export default connect(null, {
+  updateTodoText,
+  changeTodoComplited,
+  deleteTodo,
+  makeOldTodo,
+})(Todo);

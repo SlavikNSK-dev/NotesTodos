@@ -1,15 +1,17 @@
+import { TBaseThunk } from '..';
+
 export type TNote = {
   id: string;
   title: string;
   isNew?: boolean;
 };
 
-// Initial state type
+// Тип стейта
 export type TNotesState = {
   notes: TNote[];
 };
 
-// Action creators types
+// Типы экшенов
 export type TInitNotesAC = {
   type: 'INIT_NOTES';
   notes: TNote[];
@@ -36,9 +38,11 @@ export type TDeleteNoteAC = {
   noteId: string;
 };
 
+// Общие типы для редюсера
 export type TNotesActions =
   | TInitNotesAC
   | TCreateNoteAC
   | TMakeOldNoteAC
   | TUpdateNoteTitleAC
   | TDeleteNoteAC;
+export type TNotesThunks = TBaseThunk<TNotesActions>;

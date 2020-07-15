@@ -1,5 +1,5 @@
-import { combineReducers, createStore, applyMiddleware, Store } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import { combineReducers, createStore, applyMiddleware, Store, Action } from 'redux';
+import thunkMiddleware, { ThunkAction } from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import notesReducer from './notesReducer/reducer';
@@ -13,6 +13,17 @@ const rootReducer = combineReducers({
 });
 
 export type TAppState = ReturnType<typeof rootReducer>;
+
+/**
+ * Общий для всех редюсеров тип санки 
+ * @example type TAppReducerThunks = TBaseThunk<TAppReducerctions> 
+ */
+export type TBaseThunk<A extends Action = Action, R = Promise<void>> = ThunkAction<
+  R,
+  TAppState,
+  unknown,
+  A
+>;
 
 const store: Store<TAppState> = createStore(
   rootReducer,

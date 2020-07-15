@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import { v1 as uuidv1 } from 'uuid';
 import { TAppState } from './../../redux/index';
 import { TNote } from './../../redux/notesReducer/types';
 import s from './Notes.module.scss';
@@ -12,15 +11,17 @@ import { createNote } from './../../redux/notesReducer/thunks';
 export interface INotes {
   notes?: TNote[];
   isInitialized: boolean;
-  createNote(note: TNote): void;
+  createNote(title: string): void;
 }
 
 /**
  * Компонент всех заметок
  */
 const Notes: FunctionComponent<INotes> = (props) => {
+  // Props destructuring
   const { notes, isInitialized, createNote } = props;
 
+  // Если приложение не проинициализировано, крутим прелоадер
   if (!isInitialized) {
     return (
       <div className={s.wrapper}>
@@ -31,14 +32,9 @@ const Notes: FunctionComponent<INotes> = (props) => {
     );
   }
 
+  // Handlers
   const textareaOnChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // Создавать объекты желательно не в этом месте, но я поленился и сделал так...
-    const newNote: TNote = {
-      id: uuidv1(),
-      title: e.target.value,
-      isNew: true,
-    };
-    createNote(newNote);
+    createNote(e.target.value);
   };
 
   return (

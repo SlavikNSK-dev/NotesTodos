@@ -1,3 +1,5 @@
+import { TBaseThunk } from '..';
+
 export type TTodo = {
   id: string;
   noteId: string;
@@ -6,12 +8,12 @@ export type TTodo = {
   isNew?: boolean;
 };
 
-// Initial state type
+// Тип стейта
 export type TTodosState = {
   todos: TTodo[];
 };
 
-// Action creators types
+// Типы экшенов
 export type TInitTodoAC = {
   type: 'INIT_TODOS';
   todos: TTodo[];
@@ -48,6 +50,7 @@ export type TDeleteAllTodosByNoteIdAC = {
   noteId: string;
 };
 
+// Общие типы для редюсера
 export type TTodosActions =
   | TInitTodoAC
   | TCreateTodoAC
@@ -56,3 +59,4 @@ export type TTodosActions =
   | TChangeTodoComplitedAC
   | TDeleteTodoAC
   | TDeleteAllTodosByNoteIdAC;
+export type TTodosThunks = TBaseThunk<TTodosActions>;

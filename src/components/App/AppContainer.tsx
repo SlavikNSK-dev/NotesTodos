@@ -18,10 +18,8 @@ export interface IAppContainer {
 const AppContainer: FunctionComponent<IAppContainer> = (props) => {
   const { store, isInitialized, initApp } = props;
 
-  if (!isInitialized) {
-    // Инициализируем приложение, после подгрузки заметок и дел
-    initApp();
-  }
+  // Инициализируем приложение, после подгрузки заметок и дел
+  if (!isInitialized) initApp();
 
   return (
     <Provider store={store}>
