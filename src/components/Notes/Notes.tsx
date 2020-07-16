@@ -37,15 +37,15 @@ const Notes: FunctionComponent<INotes> = (props) => {
     createNote(e.target.value);
   };
 
+  const mappedNotes = notes?.map((n) => <Note key={n.id} note={n} />);
+
   return (
     <div className={s.wrapper}>
       <div className={s.addNote}>
         <MyTextarea placeholder={'New note...'} onChange={textareaOnChangeHandler} />
       </div>
 
-      {notes?.map((n) => (
-        <Note key={n.id} note={n} />
-      ))}
+      {mappedNotes}
     </div>
   );
 };

@@ -24,11 +24,11 @@ const TodoList: FunctionComponent<ITodoList> = (props) => {
     createTodo(noteId, e.target.value);
   };
 
+  const mappedTodos = todos?.map((t) => <Todo key={t.id} todo={t} />);
+
   return (
     <div className={s.wrapper}>
-      {todos?.map((t) => {
-        return <Todo key={t.id} todo={t} />;
-      })}
+      {mappedTodos}
       <div className={s.newTodo}>
         <span></span>
         <MyTextarea placeholder={'New todo text...'} onChange={textareaOnChangeHandler} />
