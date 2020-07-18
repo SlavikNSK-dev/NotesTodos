@@ -43,8 +43,6 @@ const Note: FunctionComponent<TProps> = (props): JSX.Element => {
     if (note.isNew) setEditMode(true);
   }, [note.isNew]);
 
-  console.log('render Note');
-
   // Handlers
   const clickAwayHandler = () => {
     setEditMode(false);
