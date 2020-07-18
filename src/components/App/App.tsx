@@ -1,14 +1,17 @@
 import React, { FunctionComponent } from 'react';
 import cn from 'classnames';
+// import types
+// import components
 import Notes from './../Notes/Notes';
+// other imports
 import s from './App.module.scss';
 
-export interface IApp {}
+export interface IProps {}
 
 /**
  * Корневая компонента приложения
  */
-const App: FunctionComponent<IApp> = () => {
+const App: FunctionComponent<IProps> = (): JSX.Element => {
   return (
     <div className={s.app}>
       <h1>React / Redux test todo list</h1>

@@ -1,46 +1,42 @@
 import {
-  TTodo,
+  ETodoActionsTypes,
   TCreateTodoAC,
+  TDeleteTodoAC,
+  TTodo,
+  TInitTodosAC,
   TUpdateTodoTextAC,
   TChangeTodoComplitedAC,
-  TDeleteTodoAC,
-  TDeleteAllTodosByNoteIdAC,
-  TInitTodoAC,
   TMakeOldTodoAC,
+  TTodos,
 } from './types';
 
-export const initTodosAC = (todos: TTodo[]): TInitTodoAC => ({
-  type: 'INIT_TODOS',
+export const initTodosAC = (todos: TTodos): TInitTodosAC => ({
+  type: ETodoActionsTypes.INIT_TODOS,
   todos,
 });
 
 export const createTodoAC = (todo: TTodo): TCreateTodoAC => ({
-  type: 'CREATE_TODO',
+  type: ETodoActionsTypes.CREATE_TODO,
   todo,
 });
 
-export const makeOldTodoAC = (todoId: string): TMakeOldTodoAC => ({
-  type: 'MAKE_OLD_TODO',
-  todoId,
-});
-
 export const updateTodoTextAC = (todoId: string, text: string): TUpdateTodoTextAC => ({
-  type: 'UPDATE_TODO_TEXT',
+  type: ETodoActionsTypes.UPDATE_TODO_TEXT,
   todoId,
   text,
 });
 
 export const changeTodoComplitedAC = (todoId: string): TChangeTodoComplitedAC => ({
-  type: 'CHANGE_TODO_COMPLITED',
+  type: ETodoActionsTypes.CHANGE_TODO_COMPLITED,
   todoId,
 });
 
 export const deleteTodoAC = (todoId: string): TDeleteTodoAC => ({
-  type: 'DELETE_TODO',
+  type: ETodoActionsTypes.DELETE_TODO,
   todoId,
 });
 
-export const deleteAllTodosByNoteIdAC = (noteId: string): TDeleteAllTodosByNoteIdAC => ({
-  type: 'DELETE_ALL_TODOS_BY_NOTE_ID',
-  noteId,
+export const makeOldTodoAC = (todoId: string): TMakeOldTodoAC => ({
+  type: ETodoActionsTypes.MAKE_OLD_TODO,
+  todoId,
 });

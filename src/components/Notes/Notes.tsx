@@ -1,23 +1,33 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-import { TAppState } from './../../redux/index';
-import { TNote } from './../../redux/notesReducer/types';
-import s from './Notes.module.scss';
+// import types
+import { TNotes } from '../../redux/notesReducer/types';
+import { TAppState } from '../../redux/index';
+// import components
+import Preloader from '../Preloader/Preloader';
 import Note from '../Note/Note';
 import MyTextarea from '../MyTextarea/MyTextarea';
-import Preloader from '../Preloader/Preloader';
+// other imports
 import { createNote } from './../../redux/notesReducer/thunks';
+import { getIsInitializedApp } from '../../redux/appReducer/selectors';
+import s from './Notes.module.scss';
+import { getNotes } from 'src/redux/notesReducer/selectors';
 
-export interface INotes {
-  notes?: TNote[];
+export interface IOwnProps {}
+interface IStateProps {
+  notes: TNotes;
   isInitialized: boolean;
+}
+interface IDispatchProps {
   createNote(title: string): void;
 }
+
+export type TProps = IOwnProps & IStateProps & IDispatchProps;
 
 /**
  * Компонент всех заметок
  */
-const Notes: FunctionComponent<INotes> = (props) => {
+const Notes: FunctionComponent<TProps> = (props): JSX.Element => {
   // Props destructuring
   const { notes, isInitialized, createNote } = props;
 
@@ -37,22 +47,26 @@ const Notes: FunctionComponent<INotes> = (props) => {
     createNote(e.target.value);
   };
 
-  const mappedNotes = notes?.map((n) => <Note key={n.id} note={n} />);
+  // Mapped arrays
+  const mappedNotes = notes.allIds.map((noteId) => {
+    return <Note key={noteId} note={notes.byId[noteId]} />;
+  });
 
   return (
     <div className={s.wrapper}>
       <div className={s.addNote}>
         <MyTextarea placeholder={'New note...'} onChange={textareaOnChangeHandler} />
       </div>
-
       {mappedNotes}
     </div>
   );
 };
 
-const mapStateToProps = (state: TAppState) => ({
-  notes: state.notes.notes,
-  isInitialized: state.app.isInitialized,
+const mapStateToProps = (state: TAppState, ownProps: IOwnProps): IStateProps => ({
+  notes: getNotes(state),
+  isInitialized: getIsInitializedApp(state),
 });
 
-export default connect(mapStateToProps, { createNote })(Notes);
+export default connect<IStateProps, IDispatchProps, IOwnProps, TAppState>(mapStateToProps, {
+  createNote,
+} as IDispatchProps)(Notes);

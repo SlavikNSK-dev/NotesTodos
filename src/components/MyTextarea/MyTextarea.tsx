@@ -1,8 +1,11 @@
 import React, { FunctionComponent, useRef, useEffect, useState } from 'react';
 import { TextareaAutosize } from '@material-ui/core';
+// import types
+// import components
+// other imports
 import s from './MyTextarea.module.scss';
 
-export interface IMyTextarea {
+export interface IProps {
   isFocused?: boolean;
   value?: string;
   placeholder?: string;
@@ -14,7 +17,7 @@ export interface IMyTextarea {
 /**
  * Компонент textarea
  */
-const MyTextarea: FunctionComponent<IMyTextarea> = (props) => {
+const MyTextarea: FunctionComponent<IProps> = (props): JSX.Element => {
   // Props destructuring
   const {
     isFocused,
@@ -58,4 +61,4 @@ const MyTextarea: FunctionComponent<IMyTextarea> = (props) => {
   );
 };
 
-export default React.memo(MyTextarea);
+export default MyTextarea;

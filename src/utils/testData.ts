@@ -1,15 +1,19 @@
-import { TNote } from "../redux/notesReducer/types";
-import { TTodo } from "../redux/todosReducer/types";
+import { TNote } from '../redux/notesReducer/types';
+import { TTodo } from '../redux/todosReducer/types';
 
 // Тестовый массив Notes
 export const notes: TNote[] = [
   {
     id: '6ebc3c1c-1edb-4057-938c-488b6927aded',
     title: 'Note title',
+    isNew: false,
+    todosCount: 0,
   },
   {
     id: '1de42d37-4335-4080-9051-6bf290b9ff5d',
     title: 'Note title length = 2 rows, for test for test for test',
+    isNew: false,
+    todosCount: 0,
   },
 ];
 

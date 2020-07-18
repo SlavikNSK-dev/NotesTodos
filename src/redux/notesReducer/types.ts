@@ -1,40 +1,56 @@
-import { TBaseThunk } from '..';
+import { TBaseThunk } from './../index';
+
+export enum ENoteActionsTypes {
+  INIT_NOTES = 'NOTES/INIT_NOTES',
+  CREATE_NOTE = 'NOTES/CREATE_NOTE',
+  UPDATE_NOTE_TITLE = 'NOTES/UPDATE_NOTE_TITLE',
+  DELETE_NOTE = 'NOTES/DELETE_NOTE',
+  MAKE_OLD_NOTE = 'NOTES/MAKE_OLD_NOTE',
+}
 
 export type TNote = {
   id: string;
   title: string;
   isNew?: boolean;
+  todosCount?: number;
+};
+
+export type TNotes = {
+  byId: {
+    [id: string]: TNote;
+  };
+  allIds: string[];
 };
 
 // Тип стейта
 export type TNotesState = {
-  notes: TNote[];
+  notes: TNotes;
 };
 
 // Типы экшенов
 export type TInitNotesAC = {
-  type: 'INIT_NOTES';
-  notes: TNote[];
+  type: ENoteActionsTypes.INIT_NOTES;
+  notes: TNotes;
 };
 
 export type TCreateNoteAC = {
-  type: 'CREATE_NOTE';
+  type: ENoteActionsTypes.CREATE_NOTE;
   note: TNote;
 };
 
-export type TMakeOldNoteAC = {
-  type: 'MAKE_OLD_NOTE';
-  noteId: string;
-};
-
 export type TUpdateNoteTitleAC = {
-  type: 'UPDATE_NOTE_TITLE';
+  type: ENoteActionsTypes.UPDATE_NOTE_TITLE;
   noteId: string;
   title: string;
 };
 
 export type TDeleteNoteAC = {
-  type: 'DELETE_NOTE';
+  type: ENoteActionsTypes.DELETE_NOTE;
+  noteId: string;
+};
+
+export type TMakeOldNoteAC = {
+  type: ENoteActionsTypes.MAKE_OLD_NOTE;
   noteId: string;
 };
 
@@ -42,7 +58,7 @@ export type TDeleteNoteAC = {
 export type TNotesActions =
   | TInitNotesAC
   | TCreateNoteAC
-  | TMakeOldNoteAC
   | TUpdateNoteTitleAC
-  | TDeleteNoteAC;
+  | TDeleteNoteAC
+  | TMakeOldNoteAC;
 export type TNotesThunks = TBaseThunk<TNotesActions>;

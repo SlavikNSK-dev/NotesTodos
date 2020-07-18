@@ -1,4 +1,13 @@
-import { TBaseThunk } from '..';
+import { TBaseThunk } from './../index';
+
+export enum ETodoActionsTypes {
+  INIT_TODOS = 'TODOS/INIT_TODOS',
+  CREATE_TODO = 'TODOS/CREATE_TODO',
+  UPDATE_TODO_TEXT = 'TODOS/UPDATE_TODO_TEXT',
+  CHANGE_TODO_COMPLITED = 'TODOS/CHANGE_TODO_COMPLITED',
+  DELETE_TODO = 'TODOS/DELETE_TODO',
+  MAKE_OLD_TODO = 'TODOS/MAKE_OLD_TODO',
+}
 
 export type TTodo = {
   id: string;
@@ -8,55 +17,55 @@ export type TTodo = {
   isNew?: boolean;
 };
 
-// Тип стейта
+export type TTodos = {
+  byId: {
+    [id: string]: TTodo;
+  };
+  allIds: string[];
+};
+
 export type TTodosState = {
-  todos: TTodo[];
+  todos: TTodos;
 };
 
 // Типы экшенов
-export type TInitTodoAC = {
-  type: 'INIT_TODOS';
-  todos: TTodo[];
+export type TInitTodosAC = {
+  type: ETodoActionsTypes.INIT_TODOS;
+  todos: TTodos;
 };
 
 export type TCreateTodoAC = {
-  type: 'CREATE_TODO';
+  type: ETodoActionsTypes.CREATE_TODO;
   todo: TTodo;
 };
 
-export type TMakeOldTodoAC = {
-  type: 'MAKE_OLD_TODO';
-  todoId: string;
-};
-
 export type TUpdateTodoTextAC = {
-  type: 'UPDATE_TODO_TEXT';
+  type: ETodoActionsTypes.UPDATE_TODO_TEXT;
   todoId: string;
   text: string;
 };
 
 export type TChangeTodoComplitedAC = {
-  type: 'CHANGE_TODO_COMPLITED';
+  type: ETodoActionsTypes.CHANGE_TODO_COMPLITED;
   todoId: string;
 };
 
 export type TDeleteTodoAC = {
-  type: 'DELETE_TODO';
+  type: ETodoActionsTypes.DELETE_TODO;
   todoId: string;
 };
 
-export type TDeleteAllTodosByNoteIdAC = {
-  type: 'DELETE_ALL_TODOS_BY_NOTE_ID';
-  noteId: string;
+export type TMakeOldTodoAC = {
+  type: ETodoActionsTypes.MAKE_OLD_TODO;
+  todoId: string;
 };
 
 // Общие типы для редюсера
 export type TTodosActions =
-  | TInitTodoAC
+  | TInitTodosAC
   | TCreateTodoAC
-  | TMakeOldTodoAC
   | TUpdateTodoTextAC
   | TChangeTodoComplitedAC
   | TDeleteTodoAC
-  | TDeleteAllTodosByNoteIdAC;
+  | TMakeOldTodoAC;
 export type TTodosThunks = TBaseThunk<TTodosActions>;

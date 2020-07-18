@@ -1,30 +1,39 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import cn from 'classnames';
+// import types
 import { TTodo } from './../../redux/todosReducer/types';
+import { TAppState } from '../../redux';
+// import components
 import MyCheckbox from './../MyCheckbox/MyCheckbox';
-import s from './Todo.module.scss';
-import delIcon from './../../assets/images/icons/cancel_24px_outlined.svg';
 import MyTextarea from '../MyTextarea/MyTextarea';
+// other imports
 import {
   updateTodoText,
   changeTodoComplited,
   deleteTodo,
   makeOldTodo,
 } from './../../redux/todosReducer/thunks';
+import delIcon from './../../assets/images/icons/cancel_24px_outlined.svg';
+import s from './Todo.module.scss';
 
-export interface ITodo {
+export interface IOwnProps {
   todo: TTodo;
+}
+interface IStateProps {}
+interface IDispatchProps {
   updateTodoText(todoId: string, text: string): void;
   changeTodoComplited(todoId: string): void;
   deleteTodo(todoId: string): void;
   makeOldTodo(todoId: string): void;
 }
 
+export type TProps = IOwnProps & IStateProps & IDispatchProps;
+
 /**
  * Компонент задания
  */
-const Todo: FunctionComponent<ITodo> = (props) => {
+const Todo: FunctionComponent<TProps> = (props): JSX.Element => {
   // Props destructuring
   const {
     todo: { id, complited, text, isNew = false },
@@ -69,9 +78,11 @@ const Todo: FunctionComponent<ITodo> = (props) => {
   );
 };
 
-export default connect(null, {
+const mapStateToProps = (state: TAppState, ownProps: IOwnProps): IStateProps => ({});
+
+export default connect<IStateProps, IDispatchProps, IOwnProps, TAppState>(mapStateToProps, {
   updateTodoText,
   changeTodoComplited,
   deleteTodo,
   makeOldTodo,
-})(Todo);
+} as IDispatchProps)(Todo);

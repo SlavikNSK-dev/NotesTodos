@@ -1,24 +1,34 @@
 import React, { FunctionComponent } from 'react';
-import { Store } from 'redux';
 import { Provider, connect } from 'react-redux';
+import { Store } from 'redux';
 import { BrowserRouter } from 'react-router-dom';
+// import types
 import { TAppState } from './../../redux/index';
-import { initApp } from './../../redux/appReducer/thunks';
+// import components
 import App from './App';
+// other imports
+import { initApp } from './../../redux/appReducer/thunks';
+import { getIsInitializedApp } from '../../redux/appReducer/selectors';
 
-export interface IAppContainer {
+export interface IOwnProps {
   store: Store<TAppState>;
+}
+interface IStateProps {
   isInitialized: boolean;
+}
+interface IDispatchProps {
   initApp(): void;
 }
+
+export type TProps = IOwnProps & IStateProps & IDispatchProps;
 
 /**
  * Контейнер над корневой компонентой
  */
-const AppContainer: FunctionComponent<IAppContainer> = (props) => {
+const AppContainer: FunctionComponent<TProps> = (props): JSX.Element => {
+  // Props destructuring
   const { store, isInitialized, initApp } = props;
 
-  // Инициализируем приложение, после подгрузки заметок и дел
   if (!isInitialized) initApp();
 
   return (
@@ -30,8 +40,10 @@ const AppContainer: FunctionComponent<IAppContainer> = (props) => {
   );
 };
 
-const mapStateToProps = (state: TAppState) => ({
-  isInitialized: state.app.isInitialized,
+const mapStateToProps = (state: TAppState, ownProps: IOwnProps): IStateProps => ({
+  isInitialized: getIsInitializedApp(state),
 });
 
-export default connect(mapStateToProps, { initApp })(AppContainer);
+export default connect<IStateProps, IDispatchProps, IOwnProps, TAppState>(mapStateToProps, {
+  initApp,
+} as IDispatchProps)(AppContainer);

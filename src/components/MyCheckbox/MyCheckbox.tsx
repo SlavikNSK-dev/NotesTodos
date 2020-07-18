@@ -1,8 +1,11 @@
-import React, { FunctionComponent, ChangeEvent } from 'react';
+import React, { FunctionComponent } from 'react';
 import cn from 'classnames';
+// import types
+// import components
+// other imports
 import s from './MyCheckbox.module.scss';
 
-export interface IMyCheckbox {
+export interface IProps {
   name?: string;
   checked?: boolean;
   onClick?(): void;
@@ -10,9 +13,9 @@ export interface IMyCheckbox {
 }
 
 /**
- * Компонент чекбокса атрибут checked приходит из пропсов
+ * Компонент чекбокса
  */
-const MyCheckbox: FunctionComponent<IMyCheckbox> = (props) => {
+const MyCheckbox: FunctionComponent<IProps> = (props): JSX.Element => {
   // Props destructuring
   const { name, checked, onClick, onChange } = props;
 
@@ -43,4 +46,4 @@ const MyCheckbox: FunctionComponent<IMyCheckbox> = (props) => {
   );
 };
 
-export default React.memo(MyCheckbox);
+export default MyCheckbox;

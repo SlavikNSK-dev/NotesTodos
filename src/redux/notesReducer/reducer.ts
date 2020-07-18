@@ -1,57 +1,73 @@
-import { TNotesState, TNotesActions } from './types';
+import { TNotesState, TNotesActions, ENoteActionsTypes } from './types';
 
 const initialState: TNotesState = {
-  notes: [],
+  notes: {
+    byId: {},
+    allIds: [],
+  },
 };
 
 const notesReducer = (state = initialState, action: TNotesActions): TNotesState => {
   switch (action.type) {
-    case 'INIT_NOTES': {
+    case ENoteActionsTypes.INIT_NOTES: {
       return {
         ...state,
-        notes: [...action.notes],
+        notes: action.notes,
       };
     }
 
-    case 'CREATE_NOTE': {
+    case ENoteActionsTypes.CREATE_NOTE: {
       return {
         ...state,
-        notes: [action.note, ...state.notes],
+        notes: {
+          byId: {
+            [action.note.id]: action.note,
+            ...state.notes.byId,
+          },
+          allIds: [action.note.id, ...state.notes.allIds],
+        },
       };
     }
 
-    case 'MAKE_OLD_NOTE': {
+    case ENoteActionsTypes.UPDATE_NOTE_TITLE: {
       return {
         ...state,
-        notes: [
-          ...state.notes.map((n) => {
-            if (n.id === action.noteId) {
-              return { ...n, isNew: false };
-            }
-            return n;
-          }),
-        ],
+        notes: {
+          ...state.notes,
+          byId: {
+            ...state.notes.byId,
+            [action.noteId]: {
+              ...state.notes.byId[action.noteId],
+              title: action.title,
+            },
+          },
+        },
       };
     }
 
-    case 'UPDATE_NOTE_TITLE': {
+    case ENoteActionsTypes.DELETE_NOTE: {
       return {
         ...state,
-        notes: [
-          ...state.notes.map((n) => {
-            if (n.id === action.noteId) {
-              return { ...n, title: action.title };
-            }
-            return n;
-          }),
-        ],
+        notes: {
+          ...state.notes,
+          allIds: [...state.notes.allIds.filter((id) => id !== action.noteId)],
+        },
       };
     }
 
-    case 'DELETE_NOTE': {
+    case ENoteActionsTypes.MAKE_OLD_NOTE: {
       return {
         ...state,
-        notes: [...state.notes.filter((n) => n.id !== action.noteId)],
+        notes: {
+          ...state.notes,
+          byId: {
+            ...state.notes.byId,
+            [action.noteId]: {
+              ...state.notes.byId[action.noteId],
+              isNew: false,
+            },
+          },
+        },
       };
     }
 

@@ -1,18 +1,19 @@
 import { v1 as uuidv1 } from 'uuid';
 import {
-  initNotesAC,
   deleteNoteAC,
-  updateNoteTitleAC,
   createNoteAC,
+  initNotesAC,
+  updateNoteTitleAC,
   makeOldNoteAC,
 } from './actions';
-import { TNote, TNotesThunks } from './types';
-import { deleteAllTodosByNoteId } from '../todosReducer/thunks';
+import { TNote, TNotesThunks, TNotes } from './types';
 
-export const initNotes = (notes: TNote[]): TNotesThunks => async (dispatch) => {
+// Устанавливает соответствие стейта с данными с сервера (в данном случае с локальными данными)
+export const initNotes = (notes: TNotes): TNotesThunks => async (dispatch) => {
   dispatch(initNotesAC(notes));
 };
 
+// Создает новую заметку
 export const createNote = (title: string): TNotesThunks => async (dispatch) => {
   const newNote: TNote = {
     id: uuidv1(),
@@ -22,17 +23,19 @@ export const createNote = (title: string): TNotesThunks => async (dispatch) => {
   dispatch(createNoteAC(newNote));
 };
 
-export const makeOldNote = (noteId: string): TNotesThunks => async (dispatch) => {
-  dispatch(makeOldNoteAC(noteId));
-};
-
+// Обновляет наименование заметки
 export const updateNoteTitle = (noteId: string, title: string): TNotesThunks => async (
   dispatch,
 ) => {
   dispatch(updateNoteTitleAC(noteId, title));
 };
 
+// Удаляет заметку
 export const deleteNote = (noteId: string): TNotesThunks => async (dispatch) => {
   dispatch(deleteNoteAC(noteId));
-  dispatch(deleteAllTodosByNoteId(noteId));
+};
+
+// Снимает признак новизны заметки (нужен для перефокусировки полей ввода)
+export const makeOldNote = (noteId: string): TNotesThunks => async (dispatch) => {
+  dispatch(makeOldNoteAC(noteId));
 };
