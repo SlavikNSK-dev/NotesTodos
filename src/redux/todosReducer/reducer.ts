@@ -1,46 +1,39 @@
-import { TTodosState, TTodosActions, ETodoActionsTypes } from './types';
+import { TTodos, TTodosActions, ETodoActionsTypes } from './types';
 
-const initialState: TTodosState = {
-  todos: {
-    byId: {},
-    allIds: [],
-  },
+const initialState: TTodos = {
+  byId: {},
+  allIds: [],
 };
 
-const todosReducer = (state = initialState, action: TTodosActions): TTodosState => {
+const todosReducer = (state = initialState, action: TTodosActions): TTodos => {
   switch (action.type) {
     case ETodoActionsTypes.INIT_TODOS: {
       return {
         ...state,
-        todos: action.todos,
+        ...action.todos,
       };
     }
 
     case ETodoActionsTypes.CREATE_TODO: {
       return {
         ...state,
-        todos: {
-          byId: {
-            ...state.todos.byId,
-            [action.todo.id]: action.todo,
-          },
-          allIds: [...state.todos.allIds, action.todo.id],
+        byId: {
+          ...state.byId,
+          [action.todo.id]: action.todo,
         },
+        allIds: [...state.allIds, action.todo.id],
       };
     }
 
     case ETodoActionsTypes.UPDATE_TODO_TEXT: {
       return {
         ...state,
-        todos: {
-          byId: {
-            ...state.todos.byId,
-            [action.todoId]: {
-              ...state.todos.byId[action.todoId],
-              text: action.text,
-            },
+        byId: {
+          ...state.byId,
+          [action.todoId]: {
+            ...state.byId[action.todoId],
+            text: action.text,
           },
-          allIds: [...state.todos.allIds],
         },
       };
     }
@@ -48,40 +41,35 @@ const todosReducer = (state = initialState, action: TTodosActions): TTodosState 
     case ETodoActionsTypes.CHANGE_TODO_COMPLITED: {
       return {
         ...state,
-        todos: {
-          byId: {
-            ...state.todos.byId,
-            [action.todoId]: {
-              ...state.todos.byId[action.todoId],
-              complited: !state.todos.byId[action.todoId].complited,
-            },
+        byId: {
+          ...state.byId,
+          [action.todoId]: {
+            ...state.byId[action.todoId],
+            complited: !state.byId[action.todoId].complited,
           },
-          allIds: [...state.todos.allIds],
         },
       };
     }
 
     case ETodoActionsTypes.DELETE_TODO: {
+      const newById = { ...state.byId };
+      delete newById[action.todoId];
+
       return {
         ...state,
-        todos: {
-          byId: { ...state.todos.byId },
-          allIds: [...state.todos.allIds.filter((id) => id !== action.todoId)],
-        },
+        byId: newById,
+        allIds: [...state.allIds.filter((id) => id !== action.todoId)],
       };
     }
     case ETodoActionsTypes.MAKE_OLD_TODO: {
       return {
         ...state,
-        todos: {
-          byId: {
-            ...state.todos.byId,
-            [action.todoId]: {
-              ...state.todos.byId[action.todoId],
-              isNew: false,
-            },
+        byId: {
+          ...state.byId,
+          [action.todoId]: {
+            ...state.byId[action.todoId],
+            isNew: false,
           },
-          allIds: [...state.todos.allIds],
         },
       };
     }

@@ -1,16 +1,20 @@
 import { TBaseThunk } from './../index';
 
+export enum EAppActionsTypes {
+  INIT_APP = 'APP/INIT_APP',
+}
+
 // Тип стейта
-export type TAppReducerState = {
+export type TAppState = {
   isInitialized: boolean;
 };
 
 // Типы экшенов
-export type TInitAppReducerAC = {
-  type: 'INIT_APP';
+export type TInitAppAC = {
+  type: EAppActionsTypes.INIT_APP;
   isInitialized: boolean;
 };
 
 // Общие типы для редюсера
-export type TAppReducerActions = TInitAppReducerAC;
-export type TAppReducerThunks = TBaseThunk<TAppReducerActions>;
+export type TAppActions = TInitAppAC;
+export type TAppThunks = TBaseThunk<TAppActions>;

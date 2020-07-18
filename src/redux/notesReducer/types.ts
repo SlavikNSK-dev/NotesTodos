@@ -22,11 +22,6 @@ export type TNotes = {
   allIds: string[];
 };
 
-// Тип стейта
-export type TNotesState = {
-  notes: TNotes;
-};
-
 // Типы экшенов
 export type TInitNotesAC = {
   type: ENoteActionsTypes.INIT_NOTES;

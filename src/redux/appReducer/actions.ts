@@ -1,6 +1,6 @@
-import { TInitAppReducerAC } from './types';
+import { TInitAppAC, EAppActionsTypes } from './types';
 
-export const initAppReducerAC = (isInitialized: boolean): TInitAppReducerAC => ({
-  type: 'INIT_APP',
+export const initAppReducerAC = (isInitialized: boolean): TInitAppAC => ({
+  type: EAppActionsTypes.INIT_APP,
   isInitialized,
 });

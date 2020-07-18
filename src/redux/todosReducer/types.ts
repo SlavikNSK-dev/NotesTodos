@@ -24,10 +24,6 @@ export type TTodos = {
   allIds: string[];
 };
 
-export type TTodosState = {
-  todos: TTodos;
-};
-
 // Типы экшенов
 export type TInitTodosAC = {
   type: ETodoActionsTypes.INIT_TODOS;

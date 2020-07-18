@@ -1,3 +1,4 @@
 import { TAppState } from './../index';
+import { TNotes } from './types';
 
-export const getNotes = (state: TAppState) => state.notes.notes;
+export const getNotes = (state: TAppState): TNotes => state.notes;

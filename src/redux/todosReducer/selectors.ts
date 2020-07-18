@@ -6,7 +6,7 @@ import { createSelector } from 'reselect';
 export const getId = (state: TAppState, id: string): string => id;
 
 //
-export const getTodos = (state: TAppState): TTodos => state.todos.todos;
+export const getTodos = (state: TAppState): TTodos => state.todos;
 
 export const getTodosByNoteId = createSelector(
   [getTodos, getId],
@@ -23,7 +23,7 @@ export const getTodosByNoteId = createSelector(
             allIds: [...obj.allIds, id],
           };
         }
-        return { ...obj };
+        return obj;
       },
       { byId: {}, allIds: [] } as TTodos,
     );

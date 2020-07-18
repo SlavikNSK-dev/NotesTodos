@@ -1,12 +1,12 @@
-import { TAppReducerActions, TAppReducerState } from './types';
+import { TAppActions, TAppState, EAppActionsTypes } from './types';
 
-const initialState: TAppReducerState = {
+const initialState: TAppState = {
   isInitialized: false,
 };
 
-const appReducer = (state = initialState, action: TAppReducerActions): TAppReducerState => {
+const appReducer = (state = initialState, action: TAppActions): TAppState => {
   switch (action.type) {
-    case 'INIT_APP': {
+    case EAppActionsTypes.INIT_APP: {
       return {
         ...state,
         isInitialized: action.isInitialized,
